@@ -16,6 +16,6 @@ struct Category: Decodable {
     }
 }
 
-enum CategoryEnum: String {
+public enum CategoryEnum: String {
     case uncategorized, accessibility, arrows, automotive, cameraandphotos, commerce, communication, connectivity, devices, editing, fitness, gaming, health, home, human, indices, keyboard, maps, math, media, multicolor, nature, objectsandtools, privacyandsecurity, shapes, textformatting, time, transportation, variablecolor, weather, whatsnew
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SymbolView: View {
+public struct SymbolView: View {
     @Environment(\.dismiss) var dismiss
     @Binding var selectedSymbol: String
     @State private var selectedCategory: String
@@ -17,7 +17,7 @@ struct SymbolView: View {
     let limitedCategories: [CategoryEnum]
     let searchTerm: String
     
-    init(
+    public init(
         loader: SymbolLoader,
         selectedSymbol: Binding<String>,
         limitedCategories: [CategoryEnum] = [],
@@ -35,7 +35,8 @@ struct SymbolView: View {
     var availableCategories: [Category] {
         loader.availableCategories(limitedCategories: limitedCategories)
     }
-    var body: some View {
+    
+    public var body: some View {
         var filteredSymbols: [Symbol] {
             loader.symbols
                 .filter { symbol in
@@ -79,8 +80,10 @@ struct SymbolView: View {
                     Image(systemName: "magnifyingglass")
                         .foregroundStyle(.secondary)
                     TextField("Search...", text: $searchText)
+                    #if os(iOS)
                         .autocapitalization(.none)
                         .textFieldStyle(.plain)
+                    #endif
                     if !searchText.isEmpty {
                         Button {
                             searchText = ""
@@ -92,10 +95,15 @@ struct SymbolView: View {
                     }
                 }
                 .padding(6)
-                .background(
+                .background{
+                    #if os(iOS)
                     RoundedRectangle(cornerRadius: 6)
                         .fill(Color(.secondarySystemBackground))
-                )
+                    #else
+                    RoundedRectangle(cornerRadius: 6)
+                        .fill(Color(.quaternaryLabelColor))
+                    #endif
+                }
             }
             
             ScrollView {

@@ -8,16 +8,16 @@
 import Foundation
 
 @Observable
-class SymbolLoader {
+public class SymbolLoader {
     var categories: [Category] = []
     var symbols: [Symbol] = []
     
-    init() {
+    public init() {
         buildSymbolsArray()
     }
     
     func decodePlist<T:Decodable>(_ type: T.Type, from fileName: String) -> T {
-        guard let resourceURL = Bundle.main.url(forResource: fileName, withExtension: "plist") else {
+        guard let resourceURL = Bundle.module.url(forResource: fileName, withExtension: "plist") else {
             fatalError("Couldnt load \(fileName) from bundle")
         }
         guard let data = try? Data(contentsOf: resourceURL) else {
