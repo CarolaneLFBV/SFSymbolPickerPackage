@@ -83,6 +83,7 @@ public struct SymbolView: View {
                 }) {
                     Image(systemName: "xmark")
                         .font(.title3)
+                        .padding(.trailing, 16)
                         .foregroundStyle(.primary)
                 }
                 .buttonStyle(.plain)
