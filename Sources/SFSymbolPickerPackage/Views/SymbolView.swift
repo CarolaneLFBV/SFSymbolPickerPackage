@@ -65,14 +65,27 @@ public struct SymbolView: View {
         let colums = [GridItem(.adaptive(minimum: 50))]
         
         VStack(alignment: .leading) {
-            if !(limitedCategories.count == 1 || !searchTerm.isEmpty) {
-                Picker("Categories", selection: $selectedCategory) {
-                    Label("All Categories", systemImage: "square.grid.2x2").tag("All Categories")
-                    ForEach(availableCategories, id: \.key) { category in
-                        Label(category.label, systemImage: category.icon).tag(category.key)
+            HStack {
+                if !(limitedCategories.count == 1 || !searchTerm.isEmpty) {
+                    Picker("Categories", selection: $selectedCategory) {
+                        Label("All Categories", systemImage: "square.grid.2x2").tag("All Categories")
+                        ForEach(availableCategories, id: \.key) { category in
+                            Label(category.label, systemImage: category.icon).tag(category.key)
+                        }
                     }
+                    .pickerStyle(.menu)
                 }
-                .pickerStyle(.menu)
+                
+                Spacer()
+                
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "xmark")
+                        .font(.title3)
+                        .foregroundStyle(.primary)
+                }
+                .buttonStyle(.plain)
             }
             
             if searchTerm.isEmpty {
